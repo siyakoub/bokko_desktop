@@ -10,6 +10,7 @@ module com.msyconseil.bokko_desktop {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires java.net.http;
 
     opens com.msyconseil.bokko_desktop to javafx.fxml;
     exports com.msyconseil.bokko_desktop;
