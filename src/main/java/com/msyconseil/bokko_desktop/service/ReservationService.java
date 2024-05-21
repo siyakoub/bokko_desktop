@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import com.google.gson.Gson;
 import com.msyconseil.bokko_desktop.model.ReservationModel;
+import com.msyconseil.bokko_desktop.utils.adapterType.ApiListResponse;
 
 public class ReservationService extends AbstractService {
 
@@ -45,7 +46,7 @@ public class ReservationService extends AbstractService {
         }
     }
 
-    public List<ReservationModel> getAll(String token, int page, int size) {
+    public List<ReservationModel> getAll(String token, String page, String size) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .header("token", token)
@@ -56,18 +57,16 @@ public class ReservationService extends AbstractService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String responseBody = response.body().trim();
-                Type responseType = new TypeToken<Map<String, List<ReservationModel>>>(){}.getType();
-                Map<String, List<ReservationModel>> responseMap = gson.fromJson(responseBody, responseType);
-                return responseMap.get("content");
-            } else if (response.statusCode() == 404) {
-                System.out.println("Réservation Réponse HTTP non réussie :" + response.statusCode());
-                return null;
+                Type responseType = new TypeToken<ApiListResponse<ReservationModel>>() {}.getType();
+                ApiListResponse<ReservationModel> apiResponse = gson.fromJson(responseBody, responseType);
+                return apiResponse.getContent();
             } else {
                 System.out.println("Réponse HTTP non réussie : " + response.statusCode());
                 return null;
             }
         } catch (Exception e) {
             e.fillInStackTrace();
+            System.out.println(e.getMessage());
             return null;
         }
     }

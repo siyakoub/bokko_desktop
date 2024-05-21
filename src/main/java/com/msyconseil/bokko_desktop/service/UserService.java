@@ -11,13 +11,66 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import com.google.gson.Gson;
+import com.msyconseil.bokko_desktop.model.ReservationModel;
 import com.msyconseil.bokko_desktop.model.UserModel;
+import com.msyconseil.bokko_desktop.utils.adapterType.ApiListResponse;
+import com.msyconseil.bokko_desktop.utils.gson.GsonConfig;
 
 public class UserService extends AbstractService {
 
     private HttpClient httpClient = HttpClient.newHttpClient();
 
-    private Gson gson = new Gson();
+    private final Gson gson = GsonConfig.createGson();
+
+    public UserModel login(String email, String password) {
+        try {
+            String loginJson = gson.toJson(Map.of("email", email, "password", password));
+            HttpRequest request = HttpRequest.newBuilder()
+                    .header("Content-Type", "application/json")
+                    .uri(URI.create(baseUrl + "/user/login"))
+                    .POST(HttpRequest.BodyPublishers.ofString(loginJson))
+                    .build();
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                String responseBody = response.body().trim();
+                Type responseType = new TypeToken<Map<String, Object>>(){}.getType();
+                Map<String, Object> responseMap = gson.fromJson(responseBody, responseType);
+                Object content = responseMap.get("content");
+                return gson.fromJson(gson.toJson(content), UserModel.class);
+            } else if (response.statusCode() == 404) {
+                System.out.println("User Réponse HTTP non réussie :" + response.statusCode());
+                return null;
+            } else {
+                System.out.println("Réponse HTTP non réussie : " + response.statusCode());
+                return null;
+            }
+        } catch (Exception e) {
+            e.fillInStackTrace();
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public boolean logout(String token, String email) {
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .header("Content-Type", "application/json")
+                    .uri(URI.create(baseUrl + "/user/logout"))
+                    .DELETE()
+                    .build();
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                return true;
+            } else if (response.statusCode() == 404) {
+                return false;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.fillInStackTrace();
+            return false;
+        }
+    }
 
     public UserModel get(String token, String email) {
         try {
@@ -58,9 +111,9 @@ public class UserService extends AbstractService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String responseBody = response.body().trim();
-                Type responseType = new TypeToken<Map<String, List<UserModel>>>(){}.getType();
-                Map<String, List<UserModel>> responseMap = gson.fromJson(responseBody, responseType);
-                return responseMap.get("content");
+                Type responseType = new TypeToken<ApiListResponse<UserModel>>() {}.getType();
+                ApiListResponse<UserModel> apiResponse = gson.fromJson(responseBody, responseType);
+                return apiResponse.getContent();
             } else if (response.statusCode() == 404) {
                 System.out.println("User Réponse HTTP non réussie :" + response.statusCode());
                 return null;
@@ -69,7 +122,8 @@ public class UserService extends AbstractService {
                 return null;
             }
         } catch (Exception e) {
-            e.fillInStackTrace();
+            e.printStackTrace();
+            System.out.println(e.getMessage());
             return null;
         }
     }

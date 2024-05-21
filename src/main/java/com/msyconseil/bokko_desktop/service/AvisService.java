@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import com.google.gson.Gson;
 import com.msyconseil.bokko_desktop.model.AvisModel;
+import com.msyconseil.bokko_desktop.model.ReservationModel;
+import com.msyconseil.bokko_desktop.utils.adapterType.ApiListResponse;
 
 public class AvisService extends AbstractService {
 
@@ -56,9 +58,9 @@ public class AvisService extends AbstractService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String responseBody = response.body().trim();
-                Type responseType = new TypeToken<Map<String, List<AvisModel>>>(){}.getType();
-                Map<String, List<AvisModel>> responseMap = gson.fromJson(responseBody, responseType);
-                return responseMap.get("content");
+                Type responseType = new TypeToken<ApiListResponse<AvisModel>>() {}.getType();
+                ApiListResponse<AvisModel> apiResponse = gson.fromJson(responseBody, responseType);
+                return apiResponse.getContent();
             } else if (response.statusCode() == 404) {
                 System.out.println("Avis Réponse HTTP non réussie :" + response.statusCode());
                 return null;

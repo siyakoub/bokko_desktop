@@ -9,7 +9,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import com.google.gson.Gson;
+import com.msyconseil.bokko_desktop.model.ReservationModel;
 import com.msyconseil.bokko_desktop.model.TrajetModel;
+import com.msyconseil.bokko_desktop.utils.adapterType.ApiListResponse;
 
 public class TrajetService extends AbstractService {
 
@@ -56,9 +58,9 @@ public class TrajetService extends AbstractService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String responseBody = response.body().trim();
-                Type responseType = new TypeToken<Map<String, List<TrajetModel>>>(){}.getType();
-                Map<String, List<TrajetModel>> responseMap = gson.fromJson(responseBody, responseType);
-                return responseMap.get("content");
+                Type responseType = new TypeToken<ApiListResponse<TrajetModel>>() {}.getType();
+                ApiListResponse<TrajetModel> apiResponse = gson.fromJson(responseBody, responseType);
+                return apiResponse.getContent();
             } else if (response.statusCode() == 404) {
                 System.out.println("Trajet Réponse HTTP non réussie :" + response.statusCode());
                 return null;

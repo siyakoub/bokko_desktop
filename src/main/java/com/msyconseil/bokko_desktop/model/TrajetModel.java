@@ -19,7 +19,7 @@ public class TrajetModel {
     private int nbPlaces;
 
     @SerializedName("prix")
-    private float prix;
+    private double prix;
 
     @SerializedName("statut")
     private String statut;
@@ -31,7 +31,7 @@ public class TrajetModel {
 
     }
 
-    public TrajetModel(UserModel userModel, String depart, String arrivee, String dateHeureDepart, int nbPlaces, float prix, String statut, int id) {
+    public TrajetModel(UserModel userModel, String depart, String arrivee, String dateHeureDepart, int nbPlaces, double prix, String statut, int id) {
         this.userDTO = userModel;
         this.depart = depart;
         this.arrivee = arrivee;
@@ -82,11 +82,11 @@ public class TrajetModel {
         this.nbPlaces = nbPlaces;
     }
 
-    public float getPrix() {
+    public double getPrix() {
         return prix;
     }
 
-    public void setPrix(float prix) {
+    public void setPrix(double prix) {
         this.prix = prix;
     }
 

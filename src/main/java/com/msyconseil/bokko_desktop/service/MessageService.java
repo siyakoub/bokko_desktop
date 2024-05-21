@@ -11,6 +11,8 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.msyconseil.bokko_desktop.model.AvisModel;
 import com.msyconseil.bokko_desktop.model.MessageModel;
+import com.msyconseil.bokko_desktop.model.ReservationModel;
+import com.msyconseil.bokko_desktop.utils.adapterType.ApiListResponse;
 
 public class MessageService extends AbstractService {
 
@@ -57,9 +59,9 @@ public class MessageService extends AbstractService {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
                 String responseBody = response.body().trim();
-                Type responseType = new TypeToken<Map<String, List<MessageModel>>>(){}.getType();
-                Map<String, List<MessageModel>> responseMap = gson.fromJson(responseBody, responseType);
-                return responseMap.get("content");
+                Type responseType = new TypeToken<ApiListResponse<MessageModel>>() {}.getType();
+                ApiListResponse<MessageModel> apiResponse = gson.fromJson(responseBody, responseType);
+                return apiResponse.getContent();
             } else if (response.statusCode() == 404) {
                 System.out.println("Message Réponse HTTP non réussie :" + response.statusCode());
                 return null;

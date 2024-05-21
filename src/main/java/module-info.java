@@ -11,7 +11,12 @@ module com.msyconseil.bokko_desktop {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.net.http;
+    requires javafx.swing;
 
     opens com.msyconseil.bokko_desktop to javafx.fxml;
+    opens com.msyconseil.bokko_desktop.controller to javafx.fxml;
+    opens com.msyconseil.bokko_desktop.model to javafx.base, com.google.gson;
+    opens com.msyconseil.bokko_desktop.utils.adapterType to com.google.gson;
+
     exports com.msyconseil.bokko_desktop;
 }

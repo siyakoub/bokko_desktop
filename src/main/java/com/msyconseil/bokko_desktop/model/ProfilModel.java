@@ -1,4 +1,5 @@
 package com.msyconseil.bokko_desktop.model;
+
 import com.google.gson.annotations.SerializedName;
 
 public class ProfilModel {
@@ -12,18 +13,16 @@ public class ProfilModel {
     @SerializedName("pictureProfil")
     private String pictureProfil;
 
-    @SerializedName("id")
-    private int id;
+    // Getters and Setters
 
     public ProfilModel() {
 
     }
 
-    public ProfilModel(UserModel userDTO, String bio, String pictureProfil, int id) {
+    public ProfilModel(UserModel userDTO, String bio, String pictureProfil) {
         this.userDTO = userDTO;
         this.bio = bio;
         this.pictureProfil = pictureProfil;
-        this.id = id;
     }
 
     public UserModel getUserDTO() {
@@ -49,13 +48,4 @@ public class ProfilModel {
     public void setPictureProfil(String pictureProfil) {
         this.pictureProfil = pictureProfil;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 }
