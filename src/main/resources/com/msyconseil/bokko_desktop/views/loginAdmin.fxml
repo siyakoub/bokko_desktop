@@ -16,7 +16,7 @@
             <children>
                 <ImageView fx:id="logoImageView" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@assets/logo/fullColorLogo.png" />
+                        <Image url="@../assets/logo/fullColorLogo.png" />
                     </image>
                 </ImageView>
                 <Label text="E-mail" />

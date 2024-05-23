@@ -40,7 +40,7 @@
                 <HBox alignment="CENTER" prefHeight="373.0" prefWidth="600.0" spacing="10.0">
                     <ImageView fx:id="logoImageView" fitHeight="236.0" fitWidth="254.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@assets/logo/logo_naked.png" />
+                            <Image url="@../assets/logo/logo_naked.png" />
                         </image>
                     </ImageView>
                     <Text fill="#1c1c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Heureux de vous revoir !" wrappingWidth="256.21630859375">
