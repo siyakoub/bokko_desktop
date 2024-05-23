@@ -115,7 +115,7 @@ public class GestionUtilisateur implements Initializable {
 
     private void openUserProfile(UserModel user) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/profilUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/views/profilUser.fxml"));
             Parent root = loader.load();
             ProfilUser controller = loader.getController();
             controller.setAdminData(adminData);
@@ -132,7 +132,7 @@ public class GestionUtilisateur implements Initializable {
 
     private void openCreateProfil() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/createUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/views/createUser.fxml"));
             Parent root = loader.load();
             CreateUser controller = loader.getController();
             controller.setAdminData(adminData);
@@ -186,7 +186,7 @@ public class GestionUtilisateur implements Initializable {
 
     private void navigateToLoginAdmin(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/loginAdmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/views/loginAdmin.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage;
@@ -211,7 +211,7 @@ public class GestionUtilisateur implements Initializable {
     private void navigateTrajetGestion(ActionEvent event) {
         try {
             SessionData.getInstance().setAdminData(adminData);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/gestionTrajets.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/views/gestionTrajets.fxml"));
             Parent root = loader.load();
             GestionTrajets controller = loader.getController();
             controller.setAdminData(adminData);
@@ -237,7 +237,7 @@ public class GestionUtilisateur implements Initializable {
     private void navigateReservationGestion(ActionEvent event) {
         try {
             SessionData.getInstance().setAdminData(adminData);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/gestionReservation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/views/gestionReservation.fxml"));
             Parent root = loader.load();
             GestionReservation controller = loader.getController();
             controller.setAdminData(adminData);
@@ -263,7 +263,7 @@ public class GestionUtilisateur implements Initializable {
     private void navigateToUserGestion(ActionEvent event) {
         try {
             SessionData.getInstance().setAdminData(adminData);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/gestionUtilisateurs.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/views/gestionUtilisateurs.fxml"));
             Parent root = loader.load();
             GestionUtilisateur controller = loader.getController();
             controller.setAdminData(adminData);

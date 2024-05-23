@@ -20,7 +20,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         System.setProperty("prism.forceGPU", "true");
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("LoginAdmin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("views/loginAdmin.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Connexion administrateur");
         stage.setScene(scene);

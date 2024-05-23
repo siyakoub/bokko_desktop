@@ -48,6 +48,7 @@ public class LoginAdmin implements Initializable {
             }
         } catch (Exception e){
             showLoginError();
+            System.out.println(e.getMessage());
             e.fillInStackTrace();
         }
     }
@@ -72,7 +73,7 @@ public class LoginAdmin implements Initializable {
     private void navigateToDashboard(ActionEvent event, UserModel userModel) {
         try {
             SessionData.getInstance().setAdminData(userModel);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/msyconseil/bokko_desktop/views/dashboard.fxml"));
             Parent root = loader.load();
             Dashboard controller = loader.getController();
             controller.setAdminData(userModel); // Transmettre les données d'administration réelles
